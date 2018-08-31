@@ -14,6 +14,10 @@ module CarrierWave
       def waveform_data options={}
         process waveform_data: [ options ]
       end
+
+      def waveform_json options={}
+        process waveform_json: [ options ]
+      end
     end
 
     def waveform options={}
@@ -33,6 +37,14 @@ module CarrierWave
       cache_stored_file! if !cached?
 
       data_filename = WaveformData.generate(current_path, options)
+      File.rename data_filename, current_path
+      self.file.instance_variable_set(:@content_type, "application/json")
+    end
+
+    def waveform_json options={}
+      cache_stored_file! if !cached?
+
+      data_filename = WaveformJson.generate(current_path, options)
       File.rename data_filename, current_path
       self.file.instance_variable_set(:@content_type, "application/json")
     end
