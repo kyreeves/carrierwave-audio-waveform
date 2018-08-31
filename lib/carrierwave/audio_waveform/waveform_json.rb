@@ -50,7 +50,7 @@ module CarrierWave
         #
         def generate(source, options={})
           options = DEFAULT_OPTIONS.merge(options)
-          filename = options[:filename] || self.generate_json_filename(source)
+          filename = options[:filename] || self.generate_json2_filename(source)
           raise ArgumentError.new("No source audio filename given, must be an existing sound file.") unless source
           raise RuntimeError.new("Source audio file '#{source}' not found.") unless File.exist?(source)
     
@@ -80,7 +80,7 @@ module CarrierWave
           filename
         end
 
-        def generate_json_filename(source)
+        def generate_json2_filename(source)
           ext = File.extname(source)
           source_file_path_without_extension = File.join File.dirname(source), File.basename(source, ext)
           "#{source_file_path_without_extension}.json"
