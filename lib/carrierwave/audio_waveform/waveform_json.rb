@@ -79,14 +79,14 @@ module CarrierWave
 
           filename
         end
-    
-        private
 
         def generate_json_filename(source)
           ext = File.extname(source)
           source_file_path_without_extension = File.join File.dirname(source), File.basename(source, ext)
           "#{source_file_path_without_extension}.json"
         end
+    
+        private
     
         # Returns a sampling of frames from the given RubyAudio::Sound using the
         # given method
