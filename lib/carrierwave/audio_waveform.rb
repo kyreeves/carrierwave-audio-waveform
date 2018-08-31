@@ -1,6 +1,7 @@
 require 'carrierwave'
 require 'carrierwave/audio_waveform/waveformer'
 require 'carrierwave/audio_waveform/waveform_data'
+require 'carrierwave/audio_waveform/waveform_json'
 
 module CarrierWave
   module AudioWaveform
