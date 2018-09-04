@@ -4,7 +4,7 @@ require 'json'
 
 module CarrierWave
   module AudioWaveform
-    class WaveformJson
+    class WaveformPeaks
       DEFAULT_OPTIONS = {
         :method => :peak,
         :samples => 100,
@@ -45,8 +45,8 @@ module CarrierWave
         #       100 => 1 sample per 100 msec; a one minute audio file will result in a width of 600 samples
         #
         # Example:
-        #   JsonWaveform.generate("Kickstart My Heart.wav")
-        #   JsonWaveform.generate("Kickstart My Heart.wav", :method => :rms)
+        #   WaveformPeaks.generate("Kickstart My Heart.wav")
+        #   WaveformPeaks.generate("Kickstart My Heart.wav", :method => :rms)
         #
         def generate(source, options={})
           options = DEFAULT_OPTIONS.merge(options)
@@ -54,9 +54,9 @@ module CarrierWave
           raise ArgumentError.new("No source audio filename given, must be an existing sound file.") unless source
           raise RuntimeError.new("Source audio file '#{source}' not found.") unless File.exist?(source)
     
-          if options[:auto_samples]
+          if options[:auto_width]
             RubyAudio::Sound.open(source) do |audio|
-              options[:samples] = (audio.info.length * 1000 / options[:auto_samples].to_i).ceil
+              options[:samples] = (audio.info.length * 1000 / options[:auto_width].to_i).ceil
             end
           end
     

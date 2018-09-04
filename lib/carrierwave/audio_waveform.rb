@@ -1,7 +1,8 @@
 require 'carrierwave'
 require 'carrierwave/audio_waveform/waveformer'
 require 'carrierwave/audio_waveform/waveform_data'
-require 'carrierwave/audio_waveform/waveform_json'
+require 'carrierwave/audio_waveform/waveform_peaks'
+require 'carrierwave/audio_waveform/waveform_svg'
 
 module CarrierWave
   module AudioWaveform
@@ -16,8 +17,12 @@ module CarrierWave
         process waveform_data: [ options ]
       end
 
-      def waveform_json options={}
-        process waveform_json: [ options ]
+      def waveform_peaks options={}
+        process waveform_peaks: [ options ]
+      end
+
+      def waveform_svg options={}
+        process waveform_svg: [ options ]
       end
     end
 
@@ -42,12 +47,20 @@ module CarrierWave
       self.file.instance_variable_set(:@content_type, "application/json")
     end
 
-    def waveform_json options={}
+    def waveform_peaks options={}
       cache_stored_file! if !cached?
 
-      data_filename = WaveformJson.generate(current_path, options)
+      data_filename = WaveformPeaks.generate(current_path, options)
       File.rename data_filename, current_path
       self.file.instance_variable_set(:@content_type, "application/json")
+    end
+
+    def waveform_svg options={}
+      cache_stored_file! if !cached?
+
+      data_filename = WaveformSvg.generate(current_path, options)
+      File.rename data_filename, current_path
+      self.file.instance_variable_set(:@content_type, "image/svg+xml")
     end
   end
 end
