@@ -164,6 +164,19 @@ module CarrierWave
           viewbox_height = options[:height]
 
           image = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3/org/1999/xlink\" viewBox=\"0 0 #{viewbox_width} #{viewbox_height}\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\" fill=\"currentColor\">"
+          if (options[:hide_style].nil? || options[:hide_style] == false)
+            image+= "<style>"
+            image+= "use.waveform-base {"
+            image+= "fill: #c4c8ce;"
+            image+= "}"
+            image+= "use.waveform-progress {"
+            image+= "fill: #9d34a5;"
+            image+= "}"
+            image+= "svg rect {"
+            image+= "fill: inherit;"
+            image+= "}"
+            image+= "</style>"
+          end
           if options[:gradient]
             options[:gradient].each_with_index do |grad, id|
               image+= "<linearGradient id=\"linear#{id}\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\">"
