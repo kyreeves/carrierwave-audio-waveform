@@ -164,25 +164,17 @@ module CarrierWave
           viewbox_width = samples.size * options[:gap_width]
           viewbox_height = options[:height]
 
-          image = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3/org/1999/xlink\" viewBox=\"0 0 #{viewbox_width} #{viewbox_height}\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\">"
+          image = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3/org/1999/xlink\" viewBox=\"0 0 #{viewbox_width} #{viewbox_height}\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\" fill=\"#{options[:color]}\">"
           if options[:gradient]
             image+= "<style>"
             image+= "rect {"
             image+= "fill: url(#linear);"
             image+= "}"
             image+= "</style>"
-            options[:gradient].each_with_index do |grad, id|
-              image+= "<linearGradient id=\"linear\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\">"
-              image+= "<stop offset=\"0%\" stop-color=\"#{grad[0]}\"/>"
-              image+= "<stop offset=\"100%\" stop-color=\"#{grad[1]}\"/>"
-              image+= "</linearGradient>"
-            end
-          else
-            image+= "<style>"
-            image+= "rect {"
-            image+= "fill:\"#{options[:color]}\";"
-            image+= "}"
-            image+= "</style>"
+            image+= "<linearGradient id=\"linear\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\">"
+            image+= "<stop offset=\"0%\" stop-color=\"#{options[:gradient][0]}\"/>"
+            image+= "<stop offset=\"100%\" stop-color=\"#{options[:gradient][1]}\"/>"
+            image+= "</linearGradient>"
           end
           uniqueWaveformID = "waveform-#{SecureRandom.uuid}"
           image+= "<g id=\"#{uniqueWaveformID}\">"
