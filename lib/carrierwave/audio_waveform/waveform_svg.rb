@@ -166,6 +166,9 @@ module CarrierWave
           image = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3/org/1999/xlink\" viewBox=\"0 0 #{viewbox_width} #{viewbox_height}\" preserveAspectRatio=\"none\" width=\"100%\" height=\"100%\" fill=\"currentColor\">"
           if (options[:hide_style].nil? || options[:hide_style] == false)
             image+= "<style>"
+            image+= "svg {"
+            image+= "fill: #c4c8ce;"
+            image+= "}"
             image+= "use.waveform-base {"
             image+= "fill: #c4c8ce;"
             image+= "}"
@@ -177,6 +180,7 @@ module CarrierWave
             image+= "}"
             image+= "</style>"
           end
+          image+= "<defs>"
           if options[:gradient]
             options[:gradient].each_with_index do |grad, id|
               image+= "<linearGradient id=\"linear#{id}\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\">"
@@ -195,9 +199,10 @@ module CarrierWave
             x = pos * options[:gap_width]
             y = (viewbox_height - height) / 2.0
 
-            image+= "<rect x=\"#{x}\" y=\"#{y}\" width=\"#{width}\" height=\"#{height}\" />"
+            image+= "<rect x=\"#{x}\" y=\"#{y}\" width=\"#{width}\" height=\"#{height}\" fill=\"currentColor\"/>"
           end
           image+= "</g>"
+          image+= "</defs>"
           image+= "<use class=\"waveform-base\" href=\"##{uniqueWaveformID}\" />"
           image+= "<use class=\"waveform-progress\" href=\"##{uniqueWaveformID}\" />"
           image+= "</svg>"
