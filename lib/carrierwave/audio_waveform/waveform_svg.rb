@@ -171,7 +171,7 @@ module CarrierWave
             image+= "fill: url(#linear);"
             image+= "}"
             image+= "</style>"
-            image+= "<linearGradient id=\"linear\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\">"
+            image+= "<linearGradient id=\"linear\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">"
             image+= "<stop offset=\"0%\" stop-color=\"#{options[:gradient][0]}\"/>"
             image+= "<stop offset=\"100%\" stop-color=\"#{options[:gradient][1]}\"/>"
             image+= "</linearGradient>"
