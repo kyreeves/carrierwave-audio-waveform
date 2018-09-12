@@ -182,7 +182,7 @@ module CarrierWave
             next if sample.nil?
 
             width = options[:bar_width]
-            height = (sample * viewbox_height).round
+            height = (sample * viewbox_height).round + 1
             x = pos * options[:gap_width]
             y = (viewbox_height - height) / 2.0
 
