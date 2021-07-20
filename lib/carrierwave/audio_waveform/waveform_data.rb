@@ -58,9 +58,7 @@ module CarrierWave
 
           @log.timed("\nGenerating...") do
             stdout_str, stderr_str, status = self.generate_waveform_data(source, options)
-            if stderr_str.present? && !stderr_str.include?("Recoverable")
-              raise RuntimeError.new(stderr_str)
-            end
+            raise RuntimeError.new(stderr_str) unless status.success?
           end
 
           if source != old_source && options[:convert_to_extension_before_processing]
